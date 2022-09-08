@@ -1,8 +1,14 @@
 package de.tkay.foosball;
 
-import de.tkay.foosball.models.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import de.tkay.foosball.models.database.Game;
+import de.tkay.foosball.models.database.GameRepository;
+import de.tkay.foosball.models.database.Player;
+import de.tkay.foosball.models.database.PlayerRepository;
+import de.tkay.foosball.models.request.GameRequest;
+import de.tkay.foosball.models.request.PlayerRequest;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 public class API {
@@ -21,8 +27,9 @@ public class API {
     }
 
     @PostMapping("/player")
-    public @ResponseBody Player addPlayer(@RequestBody Player player) {
-        return playerRepository.save(player);
+    public @ResponseBody Player addPlayer(@RequestBody PlayerRequest player) {
+        Player newPlayer = new Player(player.getFirstName(), player.getLastName(), player.getEmail());
+        return playerRepository.save(newPlayer);
     }
 
 
@@ -32,7 +39,12 @@ public class API {
     }
 
     @PostMapping("/game")
-    public @ResponseBody Game addGame(@RequestBody Game game) {
-        return gameRepository.save(game);
+    public @ResponseBody Game addGame(@RequestBody GameRequest game) {
+        Player blackAttackPlayer = this.playerRepository.findById(game.getBlackAttackPlayerId()).orElseThrow();
+        Player blackDefensePlayer = this.playerRepository.findById(game.getBlackDefensePlayerId()).orElseThrow();
+        Player yellowAttackPlayer = this.playerRepository.findById(game.getYellowAttackPlayerId()).orElseThrow();
+        Player yellowDefensePlayer = this.playerRepository.findById(game.getYellowDefensePlayerId()).orElseThrow();
+        Game newGame = new Game(blackAttackPlayer, blackDefensePlayer, yellowAttackPlayer, yellowDefensePlayer, game.isBlackWon());
+        return gameRepository.save(newGame);
     }
 }

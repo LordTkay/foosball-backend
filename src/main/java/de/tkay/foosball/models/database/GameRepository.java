@@ -1,4 +1,4 @@
-package de.tkay.foosball.models;
+package de.tkay.foosball.models.database;
 
 import org.springframework.data.repository.CrudRepository;
 
