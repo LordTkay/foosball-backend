@@ -1,16 +1,16 @@
-package de.tkay.foosball.models.request;
+package de.tkay.foosball.models.dto;
 
-public class GameRequest {
+public class GameCreate {
     private Integer blackAttackPlayerId;
     private Integer blackDefensePlayerId;
     private Integer yellowAttackPlayerId;
     private Integer yellowDefensePlayerId;
     private boolean blackWon;
 
-    public GameRequest() {
+    public GameCreate() {
     }
 
-    public GameRequest(Integer blackAttackPlayerId, Integer blackDefensePlayerId, Integer yellowAttackPlayerId, Integer yellowDefensePlayerId, boolean blackWon) {
+    public GameCreate(Integer blackAttackPlayerId, Integer blackDefensePlayerId, Integer yellowAttackPlayerId, Integer yellowDefensePlayerId, boolean blackWon) {
         this.blackAttackPlayerId = blackAttackPlayerId;
         this.blackDefensePlayerId = blackDefensePlayerId;
         this.yellowAttackPlayerId = yellowAttackPlayerId;
