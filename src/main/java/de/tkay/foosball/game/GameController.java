@@ -23,11 +23,11 @@ public class GameController {
 
     @GetMapping("/games")
     public @ResponseBody Iterable<GameSummary> getGames() {
-        return this.gameRepository.getAllGames();
+        return this.gameRepository.getGames();
     }
 
     @PutMapping("/game")
-    public @ResponseBody Game addGame(@RequestBody GameCreate game) {
+    public @ResponseBody GameSummary addGame(@RequestBody GameCreate game) {
         Player blackAttackPlayer = this.playerRepository.findById(game.getTeams().getBlack().getAttacker()).orElseThrow();
         Player blackDefensePlayer = this.playerRepository.findById(game.getTeams().getBlack().getDefender()).orElseThrow();
         Player yellowAttackPlayer = this.playerRepository.findById(game.getTeams().getYellow().getAttacker()).orElseThrow();
@@ -42,6 +42,7 @@ public class GameController {
                 game.getScores().getBlack(),
                 game.getScores().getYellow()
         );
-        return gameRepository.save(newGame);
+        Game savedGame = gameRepository.save(newGame);
+        return gameRepository.getGame(savedGame.getId());
     }
 }

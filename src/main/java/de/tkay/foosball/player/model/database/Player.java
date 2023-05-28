@@ -40,6 +40,15 @@ public class Player {
         this.email = email;
     }
 
+    public Player(Integer id, String firstName, String lastName, String email, LocalDateTime creationDate, LocalDateTime updateDate) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.creationDate = creationDate;
+        this.updateDate = updateDate;
+    }
+
     public Integer getId() {
         return id;
     }

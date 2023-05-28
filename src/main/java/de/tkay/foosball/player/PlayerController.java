@@ -2,6 +2,7 @@ package de.tkay.foosball.player;
 
 import de.tkay.foosball.player.model.database.Player;
 import de.tkay.foosball.player.model.database.PlayerRepository;
+import de.tkay.foosball.player.model.dto.PlayerSummary;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
@@ -14,8 +15,8 @@ public class PlayerController {
     }
 
     @GetMapping("/players")
-    public @ResponseBody Iterable<Player> getPlayers() {
-        return playerRepository.findAll();
+    public @ResponseBody Iterable<PlayerSummary> getPlayers() {
+        return playerRepository.getPlayersWithStats();
     }
 
     @PutMapping("/player")
