@@ -30,17 +30,35 @@ public class API {
         return playerRepository.findAll();
     }
 
-    @PostMapping("/player")
+    @PutMapping("/player")
     public @ResponseBody Player addPlayer(@RequestBody Player player) {
         Player newPlayer = new Player(player.getFirstName(), player.getLastName(), player.getEmail());
         return playerRepository.save(newPlayer);
+    }
+
+    @DeleteMapping("/player/{id}")
+    public @ResponseBody Integer deletePlayer(@PathVariable Integer id) {
+        // ToDo Returning an error if the does not exist!
+        playerRepository.deleteById(id);
+        return id;
+    }
+
+    @PatchMapping("/player/{id}")
+    public @ResponseBody Player editPlayer(@PathVariable Integer id,
+                                           @RequestBody Player editedPlayer) {
+        Player player = playerRepository.findById(id).orElseThrow();
+        player.setFirstName(editedPlayer.getFirstName());
+        player.setLastName(editedPlayer.getLastName());
+        player.setEmail(editedPlayer.getEmail());
+        playerRepository.save(player);
+        return player;
     }
 
 
     @GetMapping("/games")
     public @ResponseBody Iterable<GameSummary> getGames() {
         return this.entityManager.createQuery("""
-                select new de.tkay.foosball.models.dto.GameSummary (
+                select new de.tkay.foosball.model.dto.GameSummary (
                     g.id,
                     g.playDateTime,
                     g.blackAttackPlayer.id,
