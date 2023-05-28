@@ -1,12 +1,11 @@
 package de.tkay.foosball;
 
-import de.tkay.foosball.models.database.Game;
-import de.tkay.foosball.models.database.GameRepository;
-import de.tkay.foosball.models.database.Player;
-import de.tkay.foosball.models.database.PlayerRepository;
-import de.tkay.foosball.models.dto.GameSummary;
-import de.tkay.foosball.models.dto.GameCreate;
-import org.springframework.beans.factory.annotation.Autowired;
+import de.tkay.foosball.model.database.Game;
+import de.tkay.foosball.model.database.GameRepository;
+import de.tkay.foosball.model.database.Player;
+import de.tkay.foosball.model.database.PlayerRepository;
+import de.tkay.foosball.model.dto.GameSummary;
+import de.tkay.foosball.model.dto.GameCreate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.*;
