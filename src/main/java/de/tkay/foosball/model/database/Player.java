@@ -1,7 +1,9 @@
 package de.tkay.foosball.model.database;
 
 
+import de.tkay.foosball.converter.EmptyStringConverter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -18,11 +20,16 @@ public class Player {
     @Column(nullable = false)
     private String lastName;
 
+    @Convert(converter = EmptyStringConverter.class)
     private String email;
 
     @CreationTimestamp
     @Column(nullable = false)
     private LocalDateTime creationDate;
+
+    @UpdateTimestamp
+    @Column(nullable = false)
+    private LocalDateTime updateDate;
 
     public Player() {
     }
@@ -39,6 +46,10 @@ public class Player {
 
     public LocalDateTime getCreationDate() {
         return creationDate;
+    }
+
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
     }
 
     public String getFirstName() {
