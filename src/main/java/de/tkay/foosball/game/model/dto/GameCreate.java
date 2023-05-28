@@ -1,4 +1,4 @@
-package de.tkay.foosball.model.dto;
+package de.tkay.foosball.game.model.dto;
 
 public class GameCreate {
     private Integer blackAttackPlayerId;

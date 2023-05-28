@@ -1,4 +1,4 @@
-package de.tkay.foosball.model.database;
+package de.tkay.foosball.player.model.database;
 
 
 import de.tkay.foosball.converter.EmptyStringConverter;

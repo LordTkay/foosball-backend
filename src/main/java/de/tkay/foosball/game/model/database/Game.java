@@ -1,5 +1,6 @@
-package de.tkay.foosball.model.database;
+package de.tkay.foosball.game.model.database;
 
+import de.tkay.foosball.player.model.database.Player;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
