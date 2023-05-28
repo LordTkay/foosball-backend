@@ -16,13 +16,14 @@ public class API {
 
     private final PlayerRepository playerRepository;
     private final GameRepository gameRepository;
+    private final EntityManager entityManager;
 
-    @Autowired
-    EntityManager entityManager;
-
-    public API(PlayerRepository playerRepository, GameRepository gameRepository) {
+    public API(PlayerRepository playerRepository,
+               GameRepository gameRepository,
+               EntityManager entityManager) {
         this.playerRepository = playerRepository;
         this.gameRepository = gameRepository;
+        this.entityManager = entityManager;
     }
 
     @GetMapping("/players")
