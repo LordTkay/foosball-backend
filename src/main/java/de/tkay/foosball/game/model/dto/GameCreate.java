@@ -1,64 +1,42 @@
 package de.tkay.foosball.game.model.dto;
 
+import java.time.LocalDateTime;
+
 public class GameCreate {
-    private Integer blackAttackPlayerId;
-    private Integer blackDefensePlayerId;
-    private Integer yellowAttackPlayerId;
-    private Integer yellowDefensePlayerId;
-    private boolean blackWon;
+    private LocalDateTime playDate;
+    private GameCreateTeams teams;
+    private GameCreateScore scores;
 
     public GameCreate() {
     }
 
-    public GameCreate(Integer blackAttackPlayerId, Integer blackDefensePlayerId, Integer yellowAttackPlayerId, Integer yellowDefensePlayerId, boolean blackWon) {
-        this.blackAttackPlayerId = blackAttackPlayerId;
-        this.blackDefensePlayerId = blackDefensePlayerId;
-        this.yellowAttackPlayerId = yellowAttackPlayerId;
-        this.yellowDefensePlayerId = yellowDefensePlayerId;
-        this.blackWon = blackWon;
+    public GameCreate(LocalDateTime playDate, GameCreateTeams teams, GameCreateScore scores) {
+        this.playDate = playDate;
+        this.teams = teams;
+        this.scores = scores;
     }
 
-    public Integer getBlackDefensePlayerId() {
-        return blackDefensePlayerId;
+    public LocalDateTime getPlayDate() {
+        return playDate;
     }
 
-    public void setBlackDefensePlayerId(Integer blackDefensePlayerId) {
-        this.blackDefensePlayerId = blackDefensePlayerId;
+    public void setPlayDate(LocalDateTime playDateTime) {
+        this.playDate = playDateTime;
     }
 
-    public Integer getYellowAttackPlayerId() {
-        return yellowAttackPlayerId;
+    public GameCreateTeams getTeams() {
+        return teams;
     }
 
-    public void setYellowAttackPlayerId(Integer yellowAttackPlayerId) {
-        this.yellowAttackPlayerId = yellowAttackPlayerId;
+    public void setTeams(GameCreateTeams teams) {
+        this.teams = teams;
     }
 
-    public Integer getYellowDefensePlayerId() {
-        return yellowDefensePlayerId;
+    public GameCreateScore getScores() {
+        return scores;
     }
 
-    public void setYellowDefensePlayerId(Integer yellowDefensePlayerId) {
-        this.yellowDefensePlayerId = yellowDefensePlayerId;
-    }
-
-    public Integer getBlackAttackPlayerId() {
-        return blackAttackPlayerId;
-    }
-
-    public void setBlackAttackPlayerId(Integer blackAttackPlayerId) {
-        this.blackAttackPlayerId = blackAttackPlayerId;
-    }
-
-    public void setBlackAttackPlayerId(int blackAttackPlayerId) {
-        this.blackAttackPlayerId = blackAttackPlayerId;
-    }
-
-    public boolean isBlackWon() {
-        return blackWon;
-    }
-
-    public void setBlackWon(boolean blackWon) {
-        this.blackWon = blackWon;
+    public void setScores(GameCreateScore scores) {
+        this.scores = scores;
     }
 }

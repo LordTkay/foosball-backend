@@ -8,19 +8,14 @@ import de.tkay.foosball.player.model.database.Player;
 import de.tkay.foosball.player.model.database.PlayerRepository;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-
 @RestController
 public class GameController {
 
     private final PlayerRepository playerRepository;
     private final GameRepository gameRepository;
-    private final EntityManager entityManager;
 
-    public GameController(EntityManager entityManager,
-                          GameRepository gameRepository,
+    public GameController(GameRepository gameRepository,
                           PlayerRepository playerRepository) {
-        this.entityManager = entityManager;
         this.gameRepository = gameRepository;
         this.playerRepository = playerRepository;
     }
@@ -28,27 +23,25 @@ public class GameController {
 
     @GetMapping("/games")
     public @ResponseBody Iterable<GameSummary> getGames() {
-        return this.entityManager.createQuery("""
-                select new de.tkay.foosball.model.dto.GameSummary (
-                    g.id,
-                    g.playDateTime,
-                    g.blackAttackPlayer.id,
-                    g.blackDefensePlayer.id,
-                    g.yellowAttackPlayer.id,
-                    g.yellowDefensePlayer.id,
-                    g.blackWon
-                )
-                from Game g
-                """, GameSummary.class).getResultList();
+        return this.gameRepository.getAllGames();
     }
 
-    @PostMapping("/game")
+    @PutMapping("/game")
     public @ResponseBody Game addGame(@RequestBody GameCreate game) {
-        Player blackAttackPlayer = this.playerRepository.findById(game.getBlackAttackPlayerId()).orElseThrow();
-        Player blackDefensePlayer = this.playerRepository.findById(game.getBlackDefensePlayerId()).orElseThrow();
-        Player yellowAttackPlayer = this.playerRepository.findById(game.getYellowAttackPlayerId()).orElseThrow();
-        Player yellowDefensePlayer = this.playerRepository.findById(game.getYellowDefensePlayerId()).orElseThrow();
-        Game newGame = new Game(blackAttackPlayer, blackDefensePlayer, yellowAttackPlayer, yellowDefensePlayer, game.isBlackWon());
+        Player blackAttackPlayer = this.playerRepository.findById(game.getTeams().getBlack().getAttacker()).orElseThrow();
+        Player blackDefensePlayer = this.playerRepository.findById(game.getTeams().getBlack().getDefender()).orElseThrow();
+        Player yellowAttackPlayer = this.playerRepository.findById(game.getTeams().getYellow().getAttacker()).orElseThrow();
+        Player yellowDefensePlayer = this.playerRepository.findById(game.getTeams().getYellow().getDefender()).orElseThrow();
+
+        Game newGame = new Game(
+                game.getPlayDate(),
+                blackAttackPlayer,
+                blackDefensePlayer,
+                yellowAttackPlayer,
+                yellowDefensePlayer,
+                game.getScores().getBlack(),
+                game.getScores().getYellow()
+        );
         return gameRepository.save(newGame);
     }
 }

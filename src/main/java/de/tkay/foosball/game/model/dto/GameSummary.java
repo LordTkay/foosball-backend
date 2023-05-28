@@ -1,35 +1,38 @@
 package de.tkay.foosball.game.model.dto;
 
+import de.tkay.foosball.game.enumeration.Winner;
+
 import java.time.LocalDateTime;
 
-public class GameSummary {
+public class GameSummary extends GameCreate {
+
     private Integer id;
-    private LocalDateTime playDateTime;
-    private Integer blackAttackPlayerId;
-    private Integer blackDefensePlayerId;
-    private Integer yellowAttackPlayerId;
-    private Integer yellowDefensePlayerId;
-    private boolean blackWon;
+    private Winner winner;
+    private boolean perfectWin;
 
     public GameSummary() {
     }
 
-    public GameSummary(Integer id, LocalDateTime playDateTime, Integer blackAttackPlayerId, Integer blackDefensePlayerId, Integer yellowAttackPlayerId, Integer yellowDefensePlayerId, boolean blackWon) {
+    public GameSummary(Integer id,
+                       LocalDateTime playDate,
+                       Integer yellowAttackPlayerId,
+                       Integer yellowDefensePlayerId,
+                       Integer blackAttackPlayerId,
+                       Integer blackDefensePlayerId,
+                       Integer yellowScore,
+                       Integer blackScore,
+                       String winner,
+                       boolean perfectWin) {
+        super(playDate,
+                new GameCreateTeams(
+                        new GameCreateTeam(yellowAttackPlayerId, yellowDefensePlayerId),
+                        new GameCreateTeam(blackAttackPlayerId, blackDefensePlayerId)
+                ),
+                new GameCreateScore(yellowScore, blackScore)
+        );
         this.id = id;
-        this.playDateTime = playDateTime;
-        this.blackAttackPlayerId = blackAttackPlayerId;
-        this.blackDefensePlayerId = blackDefensePlayerId;
-        this.yellowAttackPlayerId = yellowAttackPlayerId;
-        this.yellowDefensePlayerId = yellowDefensePlayerId;
-        this.blackWon = blackWon;
-    }
-
-    public LocalDateTime getPlayDateTime() {
-        return playDateTime;
-    }
-
-    public void setPlayDateTime(LocalDateTime playDateTime) {
-        this.playDateTime = playDateTime;
+        this.winner = Winner.valueOf(winner);
+        this.perfectWin = perfectWin;
     }
 
     public Integer getId() {
@@ -40,43 +43,19 @@ public class GameSummary {
         this.id = id;
     }
 
-    public boolean isBlackWon() {
-        return blackWon;
+    public Winner getWinner() {
+        return winner;
     }
 
-    public void setBlackWon(boolean blackWon) {
-        this.blackWon = blackWon;
+    public void setWinner(Winner winner) {
+        this.winner = winner;
     }
 
-    public Integer getBlackAttackPlayerId() {
-        return blackAttackPlayerId;
+    public boolean isPerfectWin() {
+        return perfectWin;
     }
 
-    public void setBlackAttackPlayerId(Integer blackAttackPlayerId) {
-        this.blackAttackPlayerId = blackAttackPlayerId;
-    }
-
-    public Integer getBlackDefensePlayerId() {
-        return blackDefensePlayerId;
-    }
-
-    public void setBlackDefensePlayerId(Integer blackDefensePlayerId) {
-        this.blackDefensePlayerId = blackDefensePlayerId;
-    }
-
-    public Integer getYellowAttackPlayerId() {
-        return yellowAttackPlayerId;
-    }
-
-    public void setYellowAttackPlayerId(Integer yellowAttackPlayerId) {
-        this.yellowAttackPlayerId = yellowAttackPlayerId;
-    }
-
-    public Integer getYellowDefensePlayerId() {
-        return yellowDefensePlayerId;
-    }
-
-    public void setYellowDefensePlayerId(Integer yellowDefensePlayerId) {
-        this.yellowDefensePlayerId = yellowDefensePlayerId;
+    public void setPerfectWin(boolean perfectWin) {
+        this.perfectWin = perfectWin;
     }
 }
