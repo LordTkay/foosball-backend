@@ -20,7 +20,7 @@ jobs:
           distribution: 'microsoft'
           
       - name: Build maven
-        run: ./mvnw clean package -DskipTests
+        run: mvn package -DskipTests
       
       - name: Create Release
         id: create_release
