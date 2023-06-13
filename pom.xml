@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>de.tkay</groupId>
 	<artifactId>foosball</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2</version>
 	<name>foosball</name>
 	<description>Tischkicker Scoreboard</description>
 	<properties>
