@@ -1,4 +1,4 @@
-name: Build and Release Spring Boot Application
+name: Spring Boot Application
 
 on:
   push:
@@ -21,7 +21,21 @@ jobs:
           
       - name: Build maven
         run: mvn package -DskipTests
-      
+        
+      - name: Upload JAR-Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app.jar
+          path: ./target/foosball-${{ github.ref_name }}.jar
+          
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download JAR-Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app.jar
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -32,13 +46,42 @@ jobs:
           release_name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
-      
       - name: Upload JAR File
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./target/foosball-${{ github.ref_name }}.jar
+          asset_path: app.jar
           asset_name: foosball-${{ github.ref_name }}.jar
           asset_content_type: application/java-archive
+          
+  docker:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download JAR-Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app.jar
+          path: target/foosball-${{ github.ref_name }}.jar
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
