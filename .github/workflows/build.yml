@@ -62,7 +62,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.download.outputs.download-path }}
+          asset_path: ${{ steps.download.outputs.download-path }}/foosball-${{ github.ref_name }}.jar
           asset_name: foosball-${{ github.ref_name }}.jar
           asset_content_type: application/java-archive
           
