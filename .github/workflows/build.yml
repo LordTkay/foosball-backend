@@ -46,9 +46,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: jar-file
-          
-      - name: Display structure of downloaded files
-        run: ls -R
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -73,6 +70,9 @@ jobs:
     needs: release
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+  
       - name: Download JAR-Artifact
         uses: actions/download-artifact@v3
         with:
@@ -90,6 +90,9 @@ jobs:
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Display structure of downloaded files
+        run: ls -R
 
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
