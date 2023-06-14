@@ -5,6 +5,9 @@ import de.tkay.foosball.player.model.database.PlayerRepository;
 import de.tkay.foosball.player.model.dto.PlayerSummary;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller that manages the REST endpoints for fetching, creating, updating and deleting players.
+ */
 @RestController()
 public class PlayerController {
 
