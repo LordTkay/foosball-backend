@@ -4,16 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       tags:
-        description: 'Test scenario tags'
-        required: false
-        type: boolean
+        description: 'tag'
+        required: true
+        type: text
   push:
     tags:
       - '*'
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:
