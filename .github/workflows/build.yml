@@ -31,7 +31,7 @@ jobs:
       - name: Upload JAR-Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: app.jar
+          name: jar-file
           path: ./target/foosball-${{ github.ref_name }}.jar
           
   release:
@@ -42,8 +42,10 @@ jobs:
         id: download
         uses: actions/download-artifact@v3
         with:
-          name: app.jar
-          path: app.jar
+          name: jar-file
+          
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
