@@ -1,6 +1,12 @@
 name: Spring Boot Application
 
 on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
   push:
     tags:
       - '*'
