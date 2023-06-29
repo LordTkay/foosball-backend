@@ -1,9 +1,9 @@
 package de.tkay.foosball.converter;
 
 
+import jakarta.persistence.AttributeConverter;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.AttributeConverter;
 
 /**
  * A converter for Entity-Attributes of a database entity. It converts empty strings to null, when writing to the

@@ -1,10 +1,10 @@
 package de.tkay.foosball.game.model.database;
 
 import de.tkay.foosball.player.model.database.Player;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
