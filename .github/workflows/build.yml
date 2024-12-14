@@ -77,7 +77,7 @@ jobs:
           ls -la ./download/
           file ./download/foosball-${{ github.ref_name }}.jar
       - name: Rename JAR-File
-        run: mv ${{ steps.download.outputs.download-path }}/foosball-${{ github.ref_name }}.jar /target/foosball-${{ github.ref_name }}.jar
+        run: mv /download/foosball-${{ github.ref_name }}.jar /target/foosball-${{ github.ref_name }}.jar
       - name: Verify JAR Placement
         run: |
           ls -la ./target/
