@@ -74,15 +74,12 @@ jobs:
           path: download
       - name: Verify JAR Placement
         run: |
-          ls -la
           ls -la ./download/
-          ls -la ./target/
-          file ./target/foosball-${{ github.ref_name }}.jar
+          file ./download/foosball-${{ github.ref_name }}.jar
       - name: Rename JAR-File
         run: mv ${{ steps.download.outputs.download-path }}/foosball-${{ github.ref_name }}.jar /target/foosball-${{ github.ref_name }}.jar
       - name: Verify JAR Placement
         run: |
-          ls -la
           ls -la ./target/
           file ./target/foosball-${{ github.ref_name }}.jar
       - name: Log in to the Container registry
