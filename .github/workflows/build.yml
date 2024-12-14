@@ -40,10 +40,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: jar-file
-      - name: Verify JAR Placement
-        run: |
-          ls -la ./target/
-          file ./target/foosball-${{ github.ref_name }}.jar
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -76,6 +72,10 @@ jobs:
         with:
           name: jar-file
           path: target/foosball-${{ github.ref_name }}.jar
+      - name: Verify JAR Placement
+        run: |
+          ls -la ./target/
+          file ./target/foosball-${{ github.ref_name }}.jar
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
