@@ -71,9 +71,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: jar-file
-          path: target/foosball-${{ github.ref_name }}.jar
+      - name: Rename JAR-File
+        run: mv ${{ steps.download.outputs.download-path }}/foosball-${{ github.ref_name }}.jar /target/foosball-${{ github.ref_name }}.jar
       - name: Verify JAR Placement
         run: |
+          ls -la
           ls -la ./target/
           file ./target/foosball-${{ github.ref_name }}.jar
       - name: Log in to the Container registry
