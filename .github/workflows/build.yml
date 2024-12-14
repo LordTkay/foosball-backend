@@ -23,7 +23,7 @@ jobs:
           distribution: 'microsoft'
           
       - name: Build maven
-        run: mvn package -DskipTests
+        run: mvn package -DskipTests -P prod
         
       - name: Upload JAR-Artifact
         uses: actions/upload-artifact@v3

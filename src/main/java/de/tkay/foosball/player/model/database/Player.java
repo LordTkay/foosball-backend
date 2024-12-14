@@ -2,10 +2,10 @@ package de.tkay.foosball.player.model.database;
 
 
 import de.tkay.foosball.converter.EmptyStringConverter;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity

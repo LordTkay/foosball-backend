@@ -1,9 +1,7 @@
 package de.tkay.foosball.game.model.dto;
 
 import de.tkay.foosball.game.enumeration.Winner;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 public class GameSummary extends GameCreate {
